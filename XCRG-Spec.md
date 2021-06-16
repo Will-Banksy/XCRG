@@ -53,7 +53,7 @@ XCRG recognises various formats.
 
 Each format has a numeric ID used in the format field in the [INFO](#info) section, and a name (in brackets) used to refer to it
 
-0. 1-bpp black & white (Mono1)
+0. 1-bpp monochrome (Mono1)
     - This format uses 1 bit per pixel to represent an image comprised of only 2 colours, typically white (1) and black (0)
 1. 8-bpp monochrome (Mono8)
     - This format uses 8 bits (1 byte) per pixel to represent an image comprised of one channel, typically white to represent a greyscale image
