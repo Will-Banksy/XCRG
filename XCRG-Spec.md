@@ -34,7 +34,7 @@ The file is split into chunks, each chunk holding specific data about the image
     - Flags
         - (MSB) - - - - - Rv Pr Pa
             - Pa - Packed
-                - Whether the bits in the pixel data are packed or not. No effect when using a byte-aligned format such as ARGB-32
+                - Whether the bits in the pixel data are packed or not. No effect when using a format such as ARGB-32 that takes up complete bytes
             - Pr - Premultiplied
                 - Whether the alpha is premultiplied or not. Ignored when there is not alpha channel
             - Rv - Reversed
