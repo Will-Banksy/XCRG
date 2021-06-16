@@ -1,10 +1,15 @@
 # XCRG - eXtensible Chunked Raster Graphic
 
-Designed to be extensible and highly flexible
+Designed to be simple, extensible and flexible
+
+## XCRG File Format
+
+1. Magic: 4 bytes - 58 43 52 47 | XCRG
+2. Any number of chunks in any order
 
 ## Chunks
 
-The file is split into chunks, each chunk holding specific data about the image
+The actual file data is split into chunks, each chunk holding specific data about the image
 
 ### Chunk Format
 
@@ -16,7 +21,7 @@ The file is split into chunks, each chunk holding specific data about the image
 ### Standard Chunks
 
 - INFO - Information about the image
-- PIXD - The array of pixel data
+- PIXD - The array of pixel data. There may be multiple PIXD chunks
 
 ### Chunk Specs
 
@@ -26,30 +31,43 @@ The file is split into chunks, each chunk holding specific data about the image
 2. Chunk Length: variable
 3. Chunk Data:
     - Dimension Size: 1 byte
-        - The amount of bytes to use for the dimensions. Only 1, 2, 4, 8, 16 are to be used
+        - The amount of bytes to use for the dimensions. Only 1, 2, 4, 8, 16, 32 are to be used - Readers are only required to support up to 8 byte dimensions
     - Width: variable bytes
     - Height: variable bytes
     - Format ID: 1 byte
         - Refer to [Formats](#formats) section
-    - Flags
-        - (MSB) - - - - - Rv Pr Pa
+    - Format Flags
+        - (MSB) - - - En Fl Rv Pr Pa
             - Pa - Packed
                 - Whether the bits in the pixel data are packed or not. No effect when using a format such as ARGB-32 that takes up complete bytes
             - Pr - Premultiplied
                 - Whether the alpha is premultiplied or not. Ignored when there is not alpha channel
             - Rv - Reversed
                 - Whether the channel order is reversed or not. E.g. ARGB becoming BGRA
+            - Fl - Floating
+                - Whether each channel is a floating-point number or not. Ignored for channels that are not either 32-bit or 64-bit - Currently not available in the defined formats
+            - En - Endianness
+                - The endianness of the pixel data. 0 is little-endian, 1 is big-endian
+    - Compression: 1 byte
+        - The type of compression algorithm to use (Note to self: include compression algorithms (including lossy compression) specific to images such as JPEG compression)
+            0. No compression
+            1. LZO
+            2. Deflate
+            3. LZMA
 
 #### PIXD
 
 1. Chunk Magic: 50 49 58 44 | PIXD
 2. Chunk Length: variable
 3. Chunk Data:
+    - Index: 4 bytes
+        - This is the index of this PIXD chunk. The index of the chunk defines where the data held by this chunk fits into the overarching array - To construct the complete pixel data you take the pixel data from each PIXD chunk and order them by index
+        - So the pixel data of chunk with index 0 goes first, then pixel data of chunk with index 1, then 2, 3, etc.
     - Simply an array of bytes. The [INFO](#info) section contains information on how to interpret it
 
 ## Formats
 
-XCRG recognises various formats.
+XCRG recognises various formats. (Note to self: Custom formats?)
 
 Each format has a numeric ID used in the format field in the [INFO](#info) section, and a name (in brackets) used to refer to it
 
@@ -78,7 +96,3 @@ Each format has a numeric ID used in the format field in the [INFO](#info) secti
 
 (Note to self: Possibly add more. Look at Qt's supported QImage formats: [https://doc.qt.io/qt-5/qimage.html#Format-enum](https://doc.qt.io/qt-5/qimage.html#Format-enum))
 
-## XCRG File Format
-
-1. Magic: 4 bytes - 58 43 52 47 | XCRG
-2. Any number of chunks in any order
