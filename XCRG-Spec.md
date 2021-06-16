@@ -16,12 +16,14 @@ The actual file data is split into chunks, each chunk holding specific data abou
 - Chunk Magic: 4 bytes
 - Chunk Length: 4 bytes
 - Chunk Data: Length bytes
-- Chunk CRC: 4 bytes (Note to self: A CRC library: [https://github.com/panzi/CRC-and-checksum-functions](https://github.com/panzi/CRC-and-checksum-functions))
+- Chunk Cyclic Redundancy Check: 4 bytes (Note to self: A CRC library: [https://github.com/panzi/CRC-and-checksum-functions](https://github.com/panzi/CRC-and-checksum-functions))
 
 ### Standard Chunks
 
 - INFO - Information about the image
 - PIXD - The array of pixel data. There may be multiple PIXD chunks
+
+(Note to self: Include a palette chunk that maps values to colours - So say you could have a Mono1 image and you can use this chunk so that 0 and 1 are interpreted as any colour you want)
 
 ### Chunk Specs
 
@@ -31,7 +33,7 @@ The actual file data is split into chunks, each chunk holding specific data abou
 2. Chunk Length: variable
 3. Chunk Data:
     - Dimension Size: 1 byte
-        - The amount of bytes to use for the dimensions. Only 1, 2, 4, 8, 16, 32 are to be used - Readers are only required to support up to 8 byte dimensions
+        - The amount of bytes to use for the dimensions. Readers are only required to support 1, 2, 4, 8
     - Width: variable bytes
     - Height: variable bytes
     - Format ID: 1 byte
@@ -95,4 +97,3 @@ Each format has a numeric ID used in the format field in the [INFO](#info) secti
     - Uses 16 bits (2 bytes) for each of the channels, alpha, red, green and blue. The order is ARGB
 
 (Note to self: Possibly add more. Look at Qt's supported QImage formats: [https://doc.qt.io/qt-5/qimage.html#Format-enum](https://doc.qt.io/qt-5/qimage.html#Format-enum))
-
