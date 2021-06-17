@@ -28,7 +28,7 @@ set(SourceDir "${ProjectDir}/src")
 
 set(Libraries)
 
-set(IncludeDirs "${SourceDir}")
+set(IncludeDirs "${ProjectDir}" "${SourceDir}" "${ProjectDir}/wide-integer")
 
 set(SourceFiles
 	"${SourceDir}/XCRG.cpp"
@@ -37,6 +37,7 @@ set(SourceFiles
 set(HeaderFiles
 	"${SourceDir}/Include.h"
 	"${SourceDir}/XCRG.h"
+	"${SourceDir}/CRC32.h"
 )
 
 # ===

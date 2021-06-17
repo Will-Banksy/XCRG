@@ -28,7 +28,7 @@ add_subdirectory(libxcrg)
 
 set(Libraries xcrg)
 
-set(IncludeDirs "${SourceDir}")
+set(IncludeDirs "${ProjectDir}" "${SourceDir}" "${ProjectDir}/libxcrg" "${ProjectDir}/libxcrg/wide-integer/")
 
 set(SourceFiles
 	"${SourceDir}/Main.cpp"

@@ -2,6 +2,21 @@
 
 Designed to be simple, extensible and flexible
 
+## Implementation
+
+### Integer Size
+
+For dimension size:
+
+- 1
+    - Max pixel data array length (64-bpp): 520,200 (Needs integer size: uint32)
+- 2
+    - Max pixel data array length (64-bpp): 34,358,689,800 (Needs integer size: uint64)
+- 4
+    - Max pixel data array length (64-bpp): 147,573,952,520,956,936,200 (Needs integer size: uint128)
+- 8
+    - Max pixel data array length (64-bpp): 2,722,258,935,367,507,707,411,848,954,274,792,865,800 (Needs integer size: uint256)
+
 ## XCRG File Format
 
 1. Magic: 4 bytes - 58 43 52 47 | XCRG
@@ -57,7 +72,7 @@ The actual file data is split into chunks, each chunk holding specific data abou
             2. Deflate
             3. LZMA
 
-(Note to self: Add frames and delay for animation?)
+(Note to self: Add frames and delay(s) for animation?)
 
 #### PIXD
 
