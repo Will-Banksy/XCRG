@@ -57,6 +57,8 @@ The actual file data is split into chunks, each chunk holding specific data abou
             2. Deflate
             3. LZMA
 
+(Note to self: Add frames and delay for animation?)
+
 #### PIXD
 
 1. Chunk Magic: 50 49 58 44 | PIXD
@@ -79,21 +81,21 @@ Each format has a numeric ID used in the format field in the [INFO](#info) secti
     - This format uses 8 bits (1 byte) per pixel to represent an image comprised of one channel, typically white to represent a greyscale image
 2. 16-bpp monochrome & alpha (AlphaMono16)
     - As above, but with an 8-bit alpha channel. The order is AC, where A is alpha and C is the colour channel
-4. 16-bpp RGB555 (RGB16_555)
+3. 16-bpp RGB555 (RGB16_555)
     - Uses 5 bits for each of the channels, red, green and blue. The order is RGB
-6. 16-bpp RGB565 (RGB16_565)
+4. 16-bpp RGB565 (RGB16_565)
     - Same as above but uses 6 bits for the green channel, as the human eye is most sensitive to green. This means it takes up the full 2 bytes without leaving a bit out like the previous format. The order is RGB
-7. 16-bpp ARGB (ARGB16)
+5. 16-bpp ARGB (ARGB16)
     - Uses 4 bits for each of the channels, alpha, red, green and blue. The order is ARGB
-8. 24-bpp RGB (RGB24)
+6. 24-bpp RGB (RGB24)
     - Uses 8 bits for each of the channels, red, green and blue. The order is RGB
-9. 24-bpp ARGB (ARGB24)
+7. 24-bpp ARGB (ARGB24)
     - Uses 6 bits for each of the channels, alpha, red, green and blue. The order is ARGB
-10. 32-bpp ARGB (ARGB32)
+8. 32-bpp ARGB (ARGB32)
     - Uses 8 bits for each of the channels, alpha, red, green and blue. The order is ARGB
-11. 48-bpp RGB (RGB48)
+9. 48-bpp RGB (RGB48)
     - Uses 16 bits for each of the channels, red, green and blue, The order is RGB
-13. 64-bpp ARGB (ARGB64)
+10. 64-bpp ARGB (ARGB64)
     - Uses 16 bits (2 bytes) for each of the channels, alpha, red, green and blue. The order is ARGB
 
 (Note to self: Possibly add more. Look at Qt's supported QImage formats: [https://doc.qt.io/qt-5/qimage.html#Format-enum](https://doc.qt.io/qt-5/qimage.html#Format-enum))

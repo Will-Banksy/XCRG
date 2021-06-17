@@ -3,13 +3,15 @@ cmake_minimum_required(VERSION 3.5)
 
 # ===
 
-set(ProjectName "XCRG-Test")
+set(ProjectName "libxcrg")
 set(ProjectVersion "1.0")
-set(ExecutableName "xcrg-test")
+set(LibraryName "xcrg")
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMakeFlags "")
 set(CMakeDebugFlags "-g")
+
+option(LIBXCRG_STATIC "If true, compiles as a static library, else compiles as a shared library" OFF)
 
 # ===
 
@@ -22,19 +24,19 @@ set(SourceDir "${ProjectDir}/src")
 # ==
 # CMake Subdirectories
 
-add_subdirectory(libxcrg)
-
 # ===
 
-set(Libraries xcrg)
+set(Libraries)
 
 set(IncludeDirs "${SourceDir}")
 
 set(SourceFiles
-	"${SourceDir}/Main.cpp"
+	"${SourceDir}/XCRG.cpp"
 )
 
 set(HeaderFiles
+	"${SourceDir}/Include.h"
+	"${SourceDir}/XCRG.h"
 )
 
 # ===
@@ -45,10 +47,17 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMakeFlags}")
 message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "C++ Standard: ${CMAKE_CXX_STANDARD}")
 
-add_executable("${ExecutableName}" "${SourceFiles}" "${HeaderFiles}")
+if("${LIBXCRG_STATIC}")
+	add_library("${LibraryName}" STATIC "${SourceFiles}" "${HeaderFiles}")
+else()
+	add_library("${LibraryName}" SHARED "${SourceFiles}" "${HeaderFiles}")
+endif()
 
-target_include_directories("${ExecutableName}" PRIVATE "${IncludeDirs}")
+set_target_properties("${LibraryName}" PROPERTIES LINKER_LANGUAGE CXX)
 
-target_link_libraries("${ExecutableName}" PRIVATE "${Libraries}")
+target_include_directories("${LibraryName}" PRIVATE "${IncludeDirs}")
 
-install(TARGETS ${ExecutableName} DESTINATION "${CMAKE_INSTALL_BINDIR}")
+target_link_libraries("${LibraryName}" PRIVATE "${Libraries}")
+
+install(TARGETS ${LibraryName} DESTINATION "${CMAKE_INSTALL_BINDIR}")
+
