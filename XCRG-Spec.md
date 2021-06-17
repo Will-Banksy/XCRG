@@ -31,7 +31,7 @@ The actual file data is split into chunks, each chunk holding specific data abou
 - Chunk Magic: 4 bytes
 - Chunk Length: 4 bytes
 - Chunk Data: Length bytes
-- Chunk Cyclic Redundancy Check: 4 bytes (Note to self: A CRC library: [https://github.com/panzi/CRC-and-checksum-functions](https://github.com/panzi/CRC-and-checksum-functions))
+- Chunk Cyclic Redundancy Check: 4 bytes
 
 ### Standard Chunks
 
@@ -113,4 +113,5 @@ Each format has a numeric ID used in the format field in the [INFO](#info) secti
 10. 64-bpp ARGB (ARGB64)
     - Uses 16 bits (2 bytes) for each of the channels, alpha, red, green and blue. The order is ARGB
 
-(Note to self: Possibly add more. Look at Qt's supported QImage formats: [https://doc.qt.io/qt-5/qimage.html#Format-enum](https://doc.qt.io/qt-5/qimage.html#Format-enum))
+(Note to self: Possibly add more. Look at Qt's supported QImage formats: [https://doc.qt.io/qt-5/qimage.html#Format-enum](https://doc.qt.io/qt-5/qimage.html#Format-enum). Also look at [https://en.wikipedia.org/wiki/Color_depth](https://en.wikipedia.org/wiki/Color_depth))
+(Note to self: sRGB and gamma? Not sure how to handle that, or how I should handle that, actually I just need to find out a lot more about it ([https://en.wikipedia.org/wiki/SRGB](https://en.wikipedia.org/wiki/SRGB)))

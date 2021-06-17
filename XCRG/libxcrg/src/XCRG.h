@@ -15,6 +15,8 @@ struct Chunk {
 // NOTE Make sure I read/write everything to file with little-endian byte order (or maybe allow different byte orders...?), regardless of the endianness of the host machine.
 // htons()/htonl() and ntohs()/ntohl() are functions that reverse the byte order for 16-bit values and 32-bit values
 
+// NOTE Add the ability to define an image with an XCRGInfo object, and then sorta stream the data in, to allow writing an image without at any point having the whole pixel data array in memory
+
 namespace xcrg {
 	template <typename SizeType, typename DimsType>
 	Array<xuint8_t, SizeType> CreateXCRG(Array<xuint8_t, SizeType> pixelData, XCRGInfo<DimsType> info) {
